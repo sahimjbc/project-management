@@ -10,7 +10,7 @@ DJANGO_ENV = os.getenv("DJANGO_ENV", "development")
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "your-fallback-secret-key")
 DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1")
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost,10.10.11.164").split(",")
+ALLOWED_HOSTS = ["*"]
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -103,8 +103,8 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'ja'
+TIME_ZONE = 'Asia/Tokyo'
 USE_I18N = True
 USE_TZ = True
 
@@ -118,7 +118,7 @@ SWAGGER_SETTINGS = {
             'description': 'JWT Authorization header using the Bearer scheme. Example: "Bearer <token>"',
         }
     },
-    'DEFAULT_INFO': 'JBC_SRS_Backend.urls.api_info',
+    'DEFAULT_INFO': 'Project_Management.urls.api_info',
 }
 
 SIMPLE_JWT = {
