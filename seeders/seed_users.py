@@ -7,9 +7,20 @@ django.setup()
 
 from users.models import User, Role
 
-admin_role = Role.objects.get(name='Super-Admin')
-if not User.objects.filter(username='admin').exists():
-    User.objects.create_superuser(username='admin', password='admin123', email='admin@example.com', role=admin_role)
-    print("Admin user created.")
-else:
-    print("Admin user already exists.")
+def run():
+    try:
+        admin_role = Role.objects.get(name='Super-Admin')
+    except Role.DoesNotExist:
+        print("❌ 'Super-Admin' role does not exist. Run seed_roles_permissions first.")
+        return
+
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser(
+            username='admin',
+            password='admin123',
+            email='admin@example.com',
+            role=admin_role
+        )
+        print("✅ Admin user created.")
+    else:
+        print("ℹ️ Admin user already exists.")

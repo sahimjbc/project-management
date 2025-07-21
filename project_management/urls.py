@@ -29,7 +29,8 @@ urlpatterns = [
         path('users/', include('users.urls')),
         path('roles/', include('roles.urls')),
         path('permissions/', include('permissions.urls')),
-        path('projects/', include('projects.urls')), 
+        path('projects/', include('projects.urls')),
+        path('project_members/', include('project_members.urls')),
     ])),
 
     path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),

@@ -10,7 +10,7 @@ DJANGO_ENV = os.getenv("DJANGO_ENV", "development")
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "your-fallback-secret-key")
 DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1")
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost,10.10.11.164").split(",")
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -32,6 +32,7 @@ LOCAL_APPS = [
     'users',
     'permissions',
     'projects',
+    'project_members',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -87,7 +88,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': int(os.getenv('DRF_PAGE_SIZE', 10)),
+    'PAGE_SIZE': int(os.getenv('DRF_PAGE_SIZE', 20)),
 }
 
 STATIC_URL = '/static/'
