@@ -25,7 +25,7 @@ api_info = openapi.Info(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include([
-        path('login/', include('login.urls')),
+        path('login', include('login.urls')),
         path('users/', include('users.urls')),
         path('roles/', include('roles.urls')),
         path('permissions/', include('permissions.urls')),
