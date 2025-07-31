@@ -21,6 +21,7 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError("User account is disabled")
 
         refresh = RefreshToken.for_user(user)
+        request = self.context.get("request")
 
         return {
             'refresh_token': str(refresh),
@@ -32,5 +33,6 @@ class LoginSerializer(serializers.Serializer):
                 'role': user.role.name if user.role else None,
                 'is_verified': user.is_verified,
                 'phone': user.phone,
+                'avatar': request.build_absolute_uri(user.avatar.url) if user.avatar else None
             }
         }

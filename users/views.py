@@ -1,9 +1,10 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
-from .serializers import UserCreateSerializer, UserSerializer
+from .serializers import UserCreateSerializer, UserSerializer, UserUpdateSerializer
 from .services import UserService
 from .permissions import HasMenuPermission
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class UserListView(generics.ListAPIView):
     serializer_class = UserSerializer
@@ -19,6 +20,7 @@ class UserListView(generics.ListAPIView):
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UserCreateSerializer
     permission_classes = [permissions.IsAuthenticated, HasMenuPermission]
+    parser_classes = (MultiPartParser, FormParser)
 
     def get_permissions(self):
         self.menu = 'users'
@@ -48,9 +50,11 @@ class UserDetailView(generics.RetrieveAPIView):
         return UserService.get_user_by_id(user_id)
 
 class UserUpdateView(generics.UpdateAPIView):
-    serializer_class = UserSerializer
+    serializer_class = UserUpdateSerializer
     permission_classes = [permissions.IsAuthenticated, HasMenuPermission]
+    parser_classes = (MultiPartParser, FormParser)
 
+    
     def get_permissions(self):
         self.menu = 'users'
         self.action = 'edit'
@@ -63,6 +67,11 @@ class UserUpdateView(generics.UpdateAPIView):
     def perform_update(self, serializer):
         user = self.get_object()
         return UserService.update_user(user, serializer.validated_data)
+    
+    def update(self, request, *args, **kwargs):
+        print("FILES:", request.FILES)
+        print("DATA:", request.data)
+        return super().update(request, *args, **kwargs)
     
 class UserDeleteView(generics.DestroyAPIView):
     serializer_class = UserSerializer

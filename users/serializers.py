@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'role', 'phone', 'is_verified']
+        fields = ['id', 'username', 'email', 'role', 'phone', 'is_verified', 'avatar']
 
 class UserCreateSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=150, required=True)
@@ -18,7 +18,25 @@ class UserCreateSerializer(serializers.ModelSerializer):
         write_only=True,
         required=False
     )
+    avatar = serializers.ImageField(required=False, allow_null=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'phone', 'role_id']
+        fields = ['username', 'email', 'password', 'phone', 'role_id', 'avatar']
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    role = serializers.CharField(source='role.name', read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'role', 'phone', 'is_verified', 'avatar']
+        read_only_fields = ['id', 'role', 'username']
+    
+    def update(self, instance, validated_data):
+        instance.username = validated_data.get('username', instance.username)
+        instance.email = validated_data.get('email', instance.email)
+        instance.phone = validated_data.get('phone', instance.phone)
+        if 'avatar' in validated_data:
+            instance.avatar = validated_data['avatar']
+        instance.save()
+        return instance
