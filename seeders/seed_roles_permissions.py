@@ -16,7 +16,7 @@ def run():
         role, _ = Role.objects.get_or_create(name=name)
         role_objs[name] = role
 
-    menus = ['users', 'dashboard', 'settings', 'projects', 'reports', 'roles']
+    menus = ['users', 'dashboard', 'settings', 'projects', 'reports', 'roles', 'permissions']
     menu_objs = {}
     for name in menus:
         menu, _ = Menu.objects.get_or_create(name=name)
@@ -32,6 +32,7 @@ def run():
         'Super-Admin': {
             'users': ['view', 'create', 'edit', 'delete'],
             'roles': ['view', 'create', 'edit', 'delete'],
+            'permissions': ['view', 'create', 'edit', 'delete'],
             'dashboard': ['view'],
             'settings': ['view', 'edit'],
             'projects': ['view', 'create', 'edit', 'delete'],

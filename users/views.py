@@ -66,12 +66,13 @@ class UserUpdateView(generics.UpdateAPIView):
 
     def perform_update(self, serializer):
         user = self.get_object()
-        return UserService.update_user(user, serializer.validated_data)
+        self.user = UserService.update_user(user, serializer.validated_data)
     
     def update(self, request, *args, **kwargs):
-        print("FILES:", request.FILES)
-        print("DATA:", request.data)
-        return super().update(request, *args, **kwargs)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(UserSerializer(self.user).data, status=status.HTTP_201_CREATED)
     
 class UserDeleteView(generics.DestroyAPIView):
     serializer_class = UserSerializer

@@ -31,6 +31,13 @@ class LoginSerializer(serializers.Serializer):
                 'username': user.username,
                 'email': user.email,
                 'role': user.role.name if user.role else None,
+                'permissions': [
+                    {
+                        'id': permission.id,
+                        'action_name': permission.action.name,
+                        'menu_name': permission.menu.name,
+                    } for permission in user.role.permissions.all()
+                ],                
                 'is_verified': user.is_verified,
                 'phone': user.phone,
                 'avatar': request.build_absolute_uri(user.avatar.url) if user.avatar else None
