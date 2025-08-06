@@ -19,11 +19,16 @@ class UserRepository:
     
     @staticmethod
     def update_user(user, **data):
+        user.first_name = data.get('first_name', user.first_name)
+        user.last_name = data.get('last_name', user.last_name)
         user.email = data.get('email', user.email)
         user.phone = data.get('phone', user.phone)
 
         if 'avatar' in data and data['avatar'] is not None:
             user.avatar = data['avatar']
+        
+        if 'password' in data and data['password']:
+            user.set_password(data['password']) 
 
         user.save()
         return user
