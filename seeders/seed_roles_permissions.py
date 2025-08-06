@@ -60,4 +60,4 @@ def run():
                 action = action_objs[action_name]
                 Permission.objects.get_or_create(role=role, menu=menu, action=action)
 
-    print("✅ Roles, menus, actions, and permissions seeded.")
+    print("Roles, menus, actions, and permissions seeded.")

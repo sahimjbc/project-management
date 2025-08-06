@@ -15,21 +15,21 @@ def run_all_seeders():
         pass
         # seed_roles_permissions.run()
     except Exception as e:
-        print(f"❌ Error in seed_roles_permissions: {e}")
+        print(f"Error in seed_roles_permissions: {e}")
 
     try:
         pass
         # seed_project_role.run()
     except Exception as e:
-        print(f"❌ Error in seed_project_role: {e}")
+        print(f"Error in seed_project_role: {e}")
 
     try:
         pass
         # seed_users.run()
     except Exception as e:
-        print(f"❌ Error in seed_users: {e}")
+        print(f"Error in seed_users: {e}")
 
-    print("✅ All seeders completed.")
+    print("All seeders completed.")
 
 if __name__ == '__main__':
     run_all_seeders()

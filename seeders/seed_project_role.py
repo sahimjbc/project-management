@@ -13,4 +13,4 @@ def run():
     for name in project_roles:
         role, _ = ProjectRole.objects.get_or_create(name=name)
         role_objs[name] = role
-    print("✅ Project roles seeded.")
+    print("Project roles seeded.")

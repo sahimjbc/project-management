@@ -11,7 +11,7 @@ def run():
     try:
         admin_role = Role.objects.get(name='Super-Admin')
     except Role.DoesNotExist:
-        print("❌ 'Super-Admin' role does not exist. Run seed_roles_permissions first.")
+        print("'Super-Admin' role does not exist. Run seed_roles_permissions first.")
         return
 
     if not User.objects.filter(username='admin').exists():
@@ -21,6 +21,6 @@ def run():
             email='admin@example.com',
             role=admin_role
         )
-        print("✅ Admin user created.")
+        print("Admin user created.")
     else:
-        print("ℹ️ Admin user already exists.")
+        print("Admin user already exists.")
